@@ -1,0 +1,25 @@
+#TodoList-wrapper{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+ol{
+    list-style: none;
+}
+
+#delete{
+    padding:2px;
+    margin:2px  8px ;
+
+}
+ .active{
+    display: inline-block;
+    color: red;
+}
+
+#time{
+    color: darkgray;
+    font-family: Helvetica;
+}

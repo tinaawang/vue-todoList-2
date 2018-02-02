@@ -300,7 +300,58 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = new _vue2.default({
     el: '#app',
     data: {
-        message: 'Hello World!'
+        newTodo: '',
+        todoList: []
+    },
+    created: function created() {
+        var _this = this;
+
+        window.onbeforeunload = function () {
+            var dataString = JSON.stringify(_this.todoList);
+            var todoString = JSON.stringify(_this.newTodo);
+            window.localStorage.setItem('myTodos', dataString);
+            window.localStorage.setItem('Todo', todoString);
+        };
+
+        var oldDataString = window.localStorage.getItem('myTodos');
+        var oldData = JSON.parse(oldDataString);
+        this.todoList = oldData || [];
+
+        var oldTodoString = window.localStorage.getItem('Todo');
+        var oldTodo = JSON.parse(oldTodoString);
+        this.newTodo = oldTodo || '';
+    },
+    methods: {
+
+        addTodo: function addTodo() {
+            Date.prototype.Format = function (fmt) {
+                //author: meizz
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o) {
+                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+                }return fmt;
+            };
+            this.todoList.push({
+                title: this.newTodo,
+                createdAt: new Date().Format("yyyy-MM-dd"),
+                done: false
+            });
+            this.newTodo = '';
+        },
+        remove: function remove(todo) {
+            var index = this.todoList.indexOf(todo);
+            this.todoList.splice(index, 1); /*从index位置开始，删除一个元素*/
+        }
+
     }
 });
 
