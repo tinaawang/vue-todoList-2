@@ -5,6 +5,15 @@
     flex-direction: column;
 }
 
+#signInAndSignUp{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
 ol{
     list-style: none;
 }
