@@ -2,62 +2,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TodoList</title>
     <link rel="stylesheet" href="./style.css">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 
 <body>
 <div id="app">
     <section id="signInAndSignUp" v-if="!currentUser">
-        <div>
-            <label><input type="radio" name="type" value="signUp" v-model="actionType">注册</label>
-            <label><input type="radio" name="type" value="login" v-model="actionType">登入</label>
+        <div class="sign-wrapper">
+            <h1>TodoList</h1>
+            <div class="signInAndSignUp-wrapper clearfix">
+                <div class="sign-radio">
+                    <label :class="{checked:actionType === 'signUp'}"><input type="radio" name="type" value="signUp" v-model="actionType">注册</label>
+                    <label :class="{checked:actionType === 'login'}"><input type="radio" name="type" value="login" v-model="actionType">登录</label>
+
+                </div>
+
+                <div class="signUp clearfix" v-if="actionType == 'signUp'">
+                    <form  @submit.prevent=signUp>
+                        <div class="formRow">
+                            <p> 用户名
+                            </p>
+                          <input type="text" v-model="formData.username" placeholder="请输入用户名">
+                        </div>
+                        <div class="formRow">
+                           <p>密码</p>
+                            <input type="password"  v-model="formData.password" placeholder="请输入密码" >
+                        </div>
+                        <div class="formActions">
+                            <input type="submit" value="注册">
+                        </div>
+                    </form>
+                </div>
+                <div class="login" v-if="actionType == 'login'">
+
+                    <form @submit.prevent=login>
+                        <div class="formRow">
+                            <p>用户名</p><input type="text" v-model="formData.username"  placeholder="请输入用户名">
+                        </div>
+                        <div class="formRow">
+                            <p>密码</p><input type="password" v-model="formData.password"  placeholder="请输入密码">
+                        </div>
+                        <div class="formActions">
+                            <input type="submit" value="登录">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="signUp" v-if="actionType == 'signUp'">
-            <form  @submit.prevent=signUp>
-                <div class="formRow">
-                    用户名<input type="text" v-model="formData.username">
-                </div>
-                <div class="formRow">
-                    密码<input type="password"  v-model="formData.password">
-                </div>
-                <div class="formActions">
-                    <input type="submit" value="注册">
-                </div>
-            </form>
-        </div>
-        <div class="login" v-if="actionType == 'login'">
-            <form @submit.prevent=login>
-                <div class="formRow">
-                    用户名<input type="text" v-model="formData.username">
-                </div>
-                <div class="formRow">
-                    密码<input type="password" v-model="formData.password">
-                </div>
-                <div class="formActions">
-                    <input type="submit" value="登入">
-                </div>
-            </form>
-        </div>
+
     </section>
     <section id="todo" v-if="currentUser">
-        <p><button @click="logout">登出</button></p>
-        <div id="TodoList-wrapper">
-            <h1>TodoList</h1>
-            <div class="newTask">
-                <lable>输入您的待办事项：</lable>
-                <input type="text" v-model="newTodo" @keypress.enter="addTodo">
-            </div>
-            <ol class="Todos">
-                <lable>您的事项日程：</lable>
-                <li v-for="todo in todoList">
-                    <input type="checkbox" v-model="todo.done"> {{ todo.title }}
-                    <span v-if="todo.done" class="active">已完成</span>
-                    <span v-else>未完成</span>
-                    <button @click="remove(todo)" id="delete">delete</button><span id="time">{{ todo.createdAt}}</span>
 
-                </li>
-            </ol>
+        <div id="List-wrapper">
+            <div class="todoList-wrapper clearfix">
+                <span id="header">TodoList</span>
+                <div id="newTask">
+                    <input type="text" v-model="newTodo" @keypress.enter="addTodo" placeholder=" 添加Todo">
+
+                </div>
+                <div id="button"> <label><button @click="logout"></button>登出</label></div>
+            </div>
+
+            <div class="todo-wrapper">
+                <ol class="Todos">
+                    <div id="text"><label >待办事项</label></div>
+                    <div id="li-text">
+
+                        <li v-for="todo in todoList">
+                            <div id="li-text-wrapper" class="clearfix">
+                                <input  type="checkbox" v-model="todo.done" @click="finished(todo)">
+                                <span v-if="todo.done" class="active">已完成</span>
+                                <span v-else>未完成</span>
+                                <span style=" font-size: 18px;padding-left: 0px;color:black;
+                                width: 100%;overflow: hidden;word-break: break-all;">{{ todo.title }}</span>
+
+
+                                <button @click="remove(todo)" id="delete">delete</button>
+                                <label id="create-time" >创建时间：</label><label id="time">{{ todo.createdAt}}</label>
+
+                            </div>
+
+                        </li>
+
+
+                    </div>
+
+                </ol>
+            </div>
+
+
         </div>
     </section>
 </div>

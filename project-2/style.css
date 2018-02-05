@@ -1,34 +1,263 @@
-#TodoList-wrapper{
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    flex-direction: column;
+*{margin: 0;
+padding: 0;
+box-sizing: border-box;}
+body{
+
 }
-
-#signInAndSignUp{
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-
 
 ol{
     list-style: none;
 }
 
-#delete{
-    padding:2px;
-    margin:2px  8px ;
+.clearfix::after{
+    display:block;
+    content: '';
+    clear: both;
+}
+.todo-wrapper{
+    width:100vw;
+    height:100vh;
+    background-color: #aaaaaa;
 
 }
- .active{
+
+#signInAndSignUp{
+
+    background-color: #3c3c3c;
+    height:100vh;
+    position: relative;
+    overflow: hidden;
+}
+.sign-wrapper{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.sign-wrapper>h1{
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.sign-wrapper > .signInAndSignUp-wrapper {
+    box-shadow: 0 0 8px #333;
+    border-radius: 5px;
+    background: #fff;
+}
+#signInAndSignUp .sign-wrapper .sign-radio{
+    text-align: center;
+    width:300px;
+    height:50px;
+}
+#signInAndSignUp .sign-wrapper .sign-radio label{
+    letter-spacing: 16px;
+    padding-left: 16px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 30px;
+    color: #3B4465;
+    padding-bottom: 12px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+#signInAndSignUp .sign-wrapper .sign-radio label.checked{
+    opacity: 1;
+}
+
+#signInAndSignUp .sign-wrapper .sign-radio label input{
+    display: none;
+}
+
+.signInAndSignUp-wrapper  .formRow p
+{
+    width: 80%;
+    text-align: left;
+    height: 30px;
+    line-height: 30px;
+    color: #BECACA;
+    margin: 0 auto;
+}
+.signInAndSignUp-wrapper  .formRow input {
+    width: 80%;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+    background-color: #f5f2f0;
+    border: 1px solid #D7E3F2;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+.signInAndSignUp-wrapper .formActions{
+    float: right;
+    margin-bottom: 20px;
+    margin-right: 10%;
+    margin-top:10px;
+}
+.signInAndSignUp-wrapper .formActions input {
+   background-color: #2B81AF;
+    border-radius: 28px;
+    font-family: 微软雅黑;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 6px 15px 6px 15px;
+    text-decoration: none;
+    border: none;
+}
+
+.signInAndSignUp-wrapper .formActions input:hover {
+    background-color: #0D3349;
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+}
+
+.todoList-wrapper {
+    min-height:50px;
+    width:100%;
+    background: rgba(47,47,47,0.98);
+    position: relative;
+}
+
+#header{
+
+    position: absolute;
+    left:300px;
+    line-height: 50px;
+    font-size: 32px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    float: left;
+    color: #EEEEEE;
+}
+
+
+#newTask{
+
+    position: absolute;
+    right:350px;
+    float: right;
+    margin-top:12px;
+
+}
+#button{
+    position: absolute;
+    right:50px;
+    float: right;
+    margin-top:12px;
+}
+
+#newTask > input {
+    height: 24px;
+    min-width:300px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24), 0 1px 6px rgba(0, 0, 0, 0.45) inset;
+    border-radius: 5px;
+    border: none;
+}
+#button label{
+    display: block;
+    width:100px;
+    font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #EEEEEE;
+
+}
+#button label button{
+    display: none;
+}
+
+
+.Todos {
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+}
+
+
+.Todos >#text {
+    position: absolute;
+    top:10px;
+    left:300px;
+}
+.Todos >#text  label{
+    color: #2F6FAD;
+    font-size: 24px;
+    font-family: "Apple Color Emoji";
+}
+
+.Todos >#li-text {
+    position: absolute;
+    left:0;
+    top:50px;
+    width:100%;
+}
+
+.Todos >#li-text  li{
+    border:1px solid #8e908c;
+    display: block;
+    width:100%;
+    padding: 10px;
+    background-color: #f5f2f0;
+}
+.Todos >#li-text li:not(:last-child){
+    border-bottom: none;
+}
+.Todos #li-text #li-text-wrapper{
+    position: relative;
+    padding:10px;
+
+}
+.Todos #li-text #li-text-wrapper input{
+    margin-right:32px;
+}
+
+
+.Todos #li-text #li-text-wrapper #delete{
+
+    float: right;
+    background-color: #2B81AF;
+    border-radius: 28px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 3px 7px 3px 7px;
+    text-decoration: none;
+    border: none;
+
+}
+
+.Todos #li-text #li-text-wrapper :nth-child(2),.Todos #li-text #li-text-wrapper :nth-child(3){
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
+    color: #aaaaaa;
+    padding-right: 5px;
+
+}
+
+.Todos #li-text #li-text-wrapper label{
+    color: #8e908c;
+    font-size: 8px;
+
+}
+
+.Todos #li-text #li-text-wrapper label#create-time{
+    position: absolute;
+    bottom: 0;
+    right:150px;
+
+}
+.Todos #li-text #li-text-wrapper label#time{
+    position: absolute;
+    bottom: 0;
+    right:80px;
+
+}
+
+.Todos #li-text #li-text-wrapper span.active{
     display: inline-block;
     color: red;
 }
 
-#time{
-    color: darkgray;
-    font-family: Helvetica;
-}
